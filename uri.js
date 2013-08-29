@@ -1,12 +1,11 @@
 /*jslint white: false, plusplus: false */
 /*global window: true, navigator: false, document: true, importScripts: false,
- jQuery: false, kanban: true, JSON: true, Base64: true */
+ jQuery: true, JSON: true, Base64: true */
 
 /*
  Utility for working with URIs and extracting parts of it
  */
-//requires ['kanban/base']
-(function() {
+(function($) {
     "use strict";
 
     var URI = function() {
@@ -56,7 +55,7 @@
                 if(_p_private.path) {
                     uri.push(_p_private.path);
                 }
-                if(!kanban.isEmptyObject(_p_private.query)) {
+                if(!$.isEmptyObject(_p_private.query)) {
                     uri.push('?');
                     var params = [];
                     for(var param in _p_private.query) {
@@ -124,10 +123,10 @@
             _p_public.query = function(params, append) {
                 if(params) {
                     if(!append) {
-                        _p_private.query = kanban.utils.clone(params);
+                        _p_private.query = JSON.parse(JSON.stringify(params));
                         return;
                     } else {
-                        _p_private.query = kanban.extend(_p_private.query, params);
+                        _p_private.query = $.extend(_p_private.query, params);
                         return;
                     }
                 }
@@ -143,7 +142,7 @@
                             path = '/' + path;
                         }
                         _p_private.path = path;
-                    } else if(kanban.isArray(path)) {
+                    } else if($.isArray(path)) {
                         _p_private.path = path.join('/');
                     }
                     return;
@@ -157,7 +156,7 @@
                 if(tld) {
                     if(typeof tld === 'string') {
                         _p_private.tld = String(tld);
-                    } else if(kanban.isArray(tld)) {
+                    } else if($.isArray(tld)) {
                         _p_private.tld = tld.join('.');
                     }
                 }
@@ -182,7 +181,7 @@
                         domain = domain.split('.');
                     }
 
-                    if(kanban.isArray(domain)) {
+                    if($.isArray(domain)) {
                         _p_private.domain_name = domain[0];
                         domain.splice(0, 1);
                         _p_private.tld = domain.join('.');
@@ -197,8 +196,8 @@
             _p_private.subdomains = [];
             _p_public.subdomains = function(subdomains) {
                 if(subdomains) {
-                    if(kanban.isArray(subdomains)) {
-                        _p_private.subdomains = kanban.utils.clone(subdomains);
+                    if($.isArray(subdomains)) {
+                        _p_private.subdomains = JSON.parse(JSON.stringify(subdomains));
                     } else {
                         _p_private.subdomains = subdomains.split('.');
                     }
@@ -206,7 +205,7 @@
                     return;
                 }
 
-                return kanban.extend([], _p_private.subdomains);
+                return $.extend([], _p_private.subdomains);
             };
 
             _p_public.update = function update(uri) {
@@ -362,5 +361,5 @@
         };
     }
 
-    kanban.extend({uri: new URI()});
-}(kanban));
+    $.extend({uri: new URI()});
+}(jQuery));
