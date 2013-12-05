@@ -1,0 +1,22 @@
+{
+  "name": "js-uri",
+  "version": "0.1.0",
+  "homepage": "https://github.com/KanbanSolutions/js-uri",
+  "authors": [
+    "DJ Gilcrease <dj.gilcrease@kanbansolutions.com>"
+  ],
+  "description": "Javascript URI parser",
+  "main": "./uri.js",
+  "keywords": [
+    "uri",
+    "parser"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
